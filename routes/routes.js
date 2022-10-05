@@ -1,9 +1,18 @@
-const { getOperationes, addOperation, getOperationBytype, updateOperation } = require("../controllers/operation.controllers")
+const {
+  getOperations,
+  addOperation,
+  getOperationsBytype,
+  updateOperation,
+  deleteOperation,
+  getOperationsByCategory,
+} = require("../controllers/operation.controllers");
 
-const router = require("express").Router()
+const router = require("express").Router();
 
-router.get("/",getOperationes)
-router.post("/addOperation",addOperation)
-router.get("/:type_operation",getOperationBytype)
-router.put("/:id_operation",updateOperation)
+router.get("/", getOperations);
+router.post("/addOperation", addOperation);
+router.get("/:type_operation", getOperationsBytype);
+router.put("/:id_operation", updateOperation);
+router.delete("/:id_operation", deleteOperation);
+router.get("/category/:category", getOperationsByCategory);
 module.exports = router;
