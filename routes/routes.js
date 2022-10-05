@@ -1,4 +1,4 @@
-const { getOperaciones } = require("./controller")
+const { getOperaciones } = require("../controllers/controller")
 
 const router = require("express").Router()
 

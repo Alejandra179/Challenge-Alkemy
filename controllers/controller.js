@@ -1,5 +1,5 @@
 const ctrl = {}
-const conexion = require("./conexion")
+const connection = require("../db/connection")
 
 ctrl.getOperaciones = async(req, res)=>{
     let sql = "select * from operaciones"
