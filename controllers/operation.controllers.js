@@ -9,7 +9,7 @@ ctrl.addOperation = (req, res) => {
   connection.query(sql, (error, rows) => {
     error
       ? res.status(400).json(error)
-      : res.json({ message: "Operation added" });
+      : res.json({ message: "Aggregated operation" });
   });
 };
 

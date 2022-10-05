@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({extended: true}));
 
 
-app.use(require("./routes/routes"))
+app.use(require("./routes/operations.routes"))
 // Configurando puerto
 app.listen(port, () => console.log(`Server listening in port ${port}`));
 
