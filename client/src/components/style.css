@@ -1,0 +1,12 @@
+.container{
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(70,202,252,1) 100%);
+    margin: 1px;
+    padding: 10px;
+    padding-top: 2ch;
+    border-radius: 4px;
+}
+#alert{
+    font-style: normal;
+    color:orange;
+}

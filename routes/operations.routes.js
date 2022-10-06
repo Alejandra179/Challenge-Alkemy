@@ -6,7 +6,8 @@ const {
   updateOperation,
   deleteOperation,
   getOperationsByCategory,
-  getLastOperation,
+  getLastOperations,
+  getBalance,
 } = require("../controllers/operation.controllers");
 
 
@@ -15,6 +16,8 @@ router.post("/addOperation", addOperation);
 router.get("/:type_operation", getOperationsBytype);
 router.put("/:id_operation", updateOperation);
 router.delete("/:id_operation", deleteOperation);
-router.get("/categories/:category", getOperationsByCategory);
-router.get("/last/",getLastOperation)
+router.get("/categories/:category/:id_user", getOperationsByCategory);
+router.get("/last/",getLastOperations)
+router.get("/:category/:type_operation/:id_user")
+router.get("/getBalance",getBalance)
 module.exports = router;
