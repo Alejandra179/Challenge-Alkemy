@@ -1,3 +1,4 @@
+const router = require("express").Router();
 const {
   getOperations,
   addOperation,
@@ -8,7 +9,6 @@ const {
   getLastOperation,
 } = require("../controllers/operation.controllers");
 
-const router = require("express").Router();
 
 router.get("/", getOperations);
 router.post("/addOperation", addOperation);
