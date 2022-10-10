@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const auth = require("../middlewares/auth")
 const {
   getOperations,
   addOperation,
@@ -12,13 +13,13 @@ const {
 } = require("../controllers/operation.controllers");
 
 
-router.get("/", getOperations);
-router.post("/addOperation", addOperation);
-router.get("/:type_operation", getOperationsBytype);
-router.put("/:id_operation", updateOperation);
-router.delete("/:id_operation", deleteOperation);
-router.get("/categories/:category/:id_user", getOperationsByCategory);
-router.get("/last/",getLastOperations)
+router.get("/",auth, getOperations);
+router.post("/addOperation",auth, addOperation);
+router.get("/:type_operation",auth, getOperationsBytype);
+router.put("/:id_operation", auth,updateOperation);
+router.delete("/:id_operation", auth,deleteOperation);
+router.get("/categories/:category/:id_user",auth, getOperationsByCategory);
+router.get("/last/",auth,getLastOperations)
 router.get("/:category/:type_operation/:id_user")
 router.get("/getBalance",getBalance)
 router.post("/categories/addCategory",addCategory)
