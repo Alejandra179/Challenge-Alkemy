@@ -8,6 +8,7 @@ const {
   getOperationsByCategory,
   getLastOperations,
   getBalance,
+  addCategory,
 } = require("../controllers/operation.controllers");
 
 
@@ -20,4 +21,6 @@ router.get("/categories/:category/:id_user", getOperationsByCategory);
 router.get("/last/",getLastOperations)
 router.get("/:category/:type_operation/:id_user")
 router.get("/getBalance",getBalance)
+router.post("/categories/addCategory",addCategory)
+
 module.exports = router;

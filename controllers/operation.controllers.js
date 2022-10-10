@@ -90,4 +90,13 @@ ctrl.getBalance = (req, res) => {
     err ? res.status(400).json(err) : res.json(row[0].balance);
   })
 };
+
+ctrl.addCategory = (req, res)=>{
+  const { description } = req.body;
+  let sql =  `INSERT INTO categories(description) VALUES (${description});`
+  connection.query(sql, (err,row)=>{
+    err ? res.status(400).json(err) : res.json({message:"category agregatted success"});
+  })
+
+}
 module.exports = ctrl;
