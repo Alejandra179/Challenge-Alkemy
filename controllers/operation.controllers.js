@@ -2,9 +2,9 @@ const ctrl = {};
 const connection = require("../db/connection");
 
 ctrl.addOperation = (req, res) => {
-  const { concept, amount, type_operation, category, date, id_user } = req.body;
-  const sql = `INSERT INTO operations (concept, amount, date, type_operation,category, id_user) 
-  VALUES ("${concept}",${amount},"${date}","${type_operation}","${category}",${id_user})`;
+  const { concept, amount, type_operation, category, date } = req.body;
+  let sql = `INSERT INTO operations (concept, amount, date, type_operation,category, id_user) 
+  VALUES ("${concept}",${amount},"${date}","${type_operation}","${category}",${req.user.id_user})`;
 
   connection.query(sql, (error, rows) => {
     error
@@ -16,7 +16,7 @@ ctrl.addOperation = (req, res) => {
 ctrl.getOperationsBytype = (req, res) => {
   const { type_operation, id_user } = req.params;
 
-  const sql = `SELECT * FROM operations WHERE  type_operation = "${type_operation}" 
+  let sql = `SELECT * FROM operations WHERE  type_operation = ${type_operation} 
   and leavingDate is NULL and id_user=${id_user};`;
 
   connection.query(sql, (err, row) => {
@@ -85,7 +85,7 @@ ctrl.getLastOperations = (req, res) => {
 
 ctrl.getBalance = (req, res) => {
   const { id_user } = req.body;
-  let sql =`select sum(case when type_operation = "ingreso" then amount else - amount end) as balance from operations where id_user = ${id_user} AND leavingDate is null`
+  let sql =`select sum(case when type_operation = 2 then amount else - amount end) as balance from operations where id_user = ${id_user} AND leavingDate is null`
   connection.query(sql, (err,row)=>{
     err ? res.status(400).json(err) : res.json(row[0].balance);
   })
@@ -95,7 +95,7 @@ ctrl.addCategory = (req, res)=>{
   const { description } = req.body;
   let sql =  `INSERT INTO categories(description) VALUES (${description});`
   connection.query(sql, (err,row)=>{
-    err ? res.status(400).json(err) : res.json({message:"category agregatted success"});
+    err ? res.status(400).json(err) : res.json({message:"category added successfully"});
   })
 
 }
