@@ -12,6 +12,7 @@ const {
   addCategory,
 } = require("../controllers/operation.controllers");
 const { check } = require("express-validator");
+const validationFields = require("../helpers/validationFields");
 
 router.get("/", auth, getOperations);
 router.post(
@@ -26,6 +27,7 @@ router.post(
       check("concept", "concept is required").not().isEmpty().isString(),
       check("amount", "amount is required").not().isEmpty().isNumeric(),
       check("date", "date is required").not().isEmpty().isDate(),
+      validationFields
     ],
   ],
   addOperation
@@ -39,6 +41,7 @@ router.get(
         .not()
         .isEmpty()
         .isInt(),
+        validationFields
     ],
   ],
   getOperationsBytype
@@ -51,7 +54,9 @@ router.put(
       check("concept", "concept is required").not().isEmpty().isString(),
       check("amount", "amount is required").not().isEmpty().isNumeric(),
       check("date", "date is required").not().isEmpty().isDate(),
+      validationFields
     ],
+
   ],
   updateOperation
 );
@@ -69,6 +74,7 @@ router.post(
         .not()
         .isEmpty()
         .isString(),
+        validationFields
     ],
   ],
   addCategory
