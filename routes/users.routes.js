@@ -19,7 +19,7 @@ router.post(
 router.post(
   "/signIn",
   [
-    check("email", "email is required").not().isEmpty().isEmail(),
+    check("email", "email is required").not().isEmpty().isEmail().withMessage("email is invalid"),
     check("password", "password is required").not().isEmpty(),
   ],
   signIn

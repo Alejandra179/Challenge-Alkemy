@@ -4,30 +4,35 @@ const bcrypt = require("bcrypt");
 const generarJWT = require("../helpers/generateJwt");
 userCtrls.signIn = (req, res) => {
   const { email, password } = req.body;
-  let sql = `select * from users where email = '${email}';`
-  connection.query(sql , (error, row) => {
+  let sql = `select * from users where email = '${email}';`;
+  connection.query(sql, (error, row) => {
     if (error) {
       return res.status(400).json(error);
     } else {
-      console.log(row)
+      if (row.length == 0) {
+        return res.json({ message: "user not found" });
+      }
       let encryptPassword = row[0].password;
       const result = bcrypt.compareSync(password, encryptPassword);
-      console.log(result)
       if (result) {
-        generarJWT({ uid: row[0].id_user }).then((token) => {
-          return res.json({
-            id_user:row[0].id_user,
-            token,
-          });
-        },(error)=>res.status(400).json(error));
+        generarJWT({ uid: row[0].id_user }).then(
+          (token) => {
+            return res.json({
+              id_user: row[0].id_user,
+              token,
+            });
+          },
+          (error) => res.status(400).json(error)
+        );
+      }else{
+        return res.json({ message: "incorrect password" });
+        
       }
-     
     }
   });
 };
 
 userCtrls.signUp = (req, res) => {
-    
   const { email, password, name } = req.body;
 
   const encryptPassword = bcrypt.hashSync(password, 10);

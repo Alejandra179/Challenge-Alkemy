@@ -10,6 +10,7 @@ const {
   getLastOperations,
   getBalance,
   addCategory,
+  getOperationsByTypeAndCategory,
 } = require("../controllers/operation.controllers");
 const { check } = require("express-validator");
 const validationFields = require("../helpers/validationFields");
@@ -23,48 +24,45 @@ router.post(
       check("type_operation", "type of operation is required")
         .not()
         .isEmpty()
-        .isInt(),
-      check("concept", "concept is required").not().isEmpty().isString(),
-      check("amount", "amount is required").not().isEmpty().isNumeric(),
-      check("date", "date is required").not().isEmpty().isDate(),
-      validationFields
+        .isNumeric(),
+      check("concept", "concept is required")
+        .not()
+        .isEmpty()
+        .isString()
+        .withMessage("the concept shout by string"),
+      check("amount", "amount is required")
+        .not()
+        .isEmpty()
+        .isNumeric()
+        .withMessage("the amount shout by numeric"),
+      check("date", "date is required")
+        .not()
+        .isEmpty()
+        .isDate()
+        .withMessage("invalid date"),
+      validationFields,
     ],
   ],
   addOperation
 );
-router.get(
-  "/:type_operation",
-  [
-    auth,
-    [
-      check("type_operation", "type of operation is required")
-        .not()
-        .isEmpty()
-        .isInt(),
-        validationFields
-    ],
-  ],
-  getOperationsBytype
-);
+router.get("/type-operation/:id_type", auth, getOperationsBytype );
+router.get("/categories/:category", auth, getOperationsByCategory);
+router.get("/last", auth, getLastOperations);
+router.get("/:category/:type_operation", auth, getOperationsByTypeAndCategory);
+router.get("/getBalance", auth, getBalance);
 router.put(
   "/:id_operation",
   [
     auth,
     [
-      check("concept", "concept is required").not().isEmpty().isString(),
-      check("amount", "amount is required").not().isEmpty().isNumeric(),
-      check("date", "date is required").not().isEmpty().isDate(),
-      validationFields
+      check("concept", "concept is required").isString(),
+      check("amount", "amount is required").isNumeric(),
+      validationFields,
     ],
-
   ],
   updateOperation
 );
 router.delete("/:id_operation", auth, deleteOperation);
-router.get("/categories/:category", auth, getOperationsByCategory);
-router.get("/last/", auth, getLastOperations);
-router.get("/:category/:type_operation");
-router.get("/getBalance", getBalance);
 router.post(
   "/categories/addCategory",
   [
@@ -74,7 +72,7 @@ router.post(
         .not()
         .isEmpty()
         .isString(),
-        validationFields
+      validationFields,
     ],
   ],
   addCategory
