@@ -19,7 +19,7 @@ router.get("/", auth, getOperations);
 router.post(
   "/addOperation",
   [
-    auth,
+   
     [
       check("type_operation", "type of operation is required")
         .not()
@@ -45,11 +45,11 @@ router.post(
   ],
   addOperation
 );
-router.get("/type-operation/:id_type", auth, getOperationsBytype );
-router.get("/categories/:category", auth, getOperationsByCategory);
-router.get("/last", auth, getLastOperations);
-router.get("/:category/:type_operation", auth, getOperationsByTypeAndCategory);
-router.get("/getBalance", auth, getBalance);
+router.get("/type-operation/:id_type", getOperationsBytype );
+router.get("/categories/:category", getOperationsByCategory);
+router.get("/last/:idUser", getLastOperations);
+router.get("/:category/:type_operation", getOperationsByTypeAndCategory);
+router.get("/getBalance", getBalance);
 router.put(
   "/:id_operation",
   [

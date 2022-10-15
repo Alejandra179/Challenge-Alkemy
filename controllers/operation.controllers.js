@@ -78,7 +78,7 @@ ctrl.deleteOperation = (req, res) => {
 
 ctrl.getLastOperations = (req, res) => {
   
-  let sql = `select * from operations where id_user=${req.user.id_user} and leavingDate is NULL 
+  let sql = `select * from operations where id_user=${req.params.id_user} and leavingDate is NULL 
   ORDER BY id_operation DESC LIMIT 10`;
   connection.query(sql, (error, row) => {
     error ? res.status(400).json(error) : res.status(200).json(row);

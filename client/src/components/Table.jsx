@@ -1,9 +1,25 @@
 import React from "react";
-
+import { useState, useEffect } from "react";
+import { getLastOperations } from "../service/operations";
+import { useAuthContext } from "../context/authContext";
 export default function Table() {
+  const {idUser} = useAuthContext()
+  console.log(idUser)
+  const [data,setData] = useState([])
+
+  useEffect(async() => {
+    const res = await getLastOperations(idUser)
+  
+    return () => {
+      console.log(res)
+      res
+    }
+  }, [])
+  
+
   return (
     <div>
-      <table className="table table-hover">
+     {/*  <table className="table table-hover">
         <thead>
           <tr>
             <th scope="col">Category</th>
@@ -75,7 +91,7 @@ export default function Table() {
           </tr>
           
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }
